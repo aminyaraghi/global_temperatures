@@ -1,0 +1,16 @@
+# to rebuild docker image
+docker-compose build
+
+# to add project to development environment
+
+ docker-compose run --rm app sh -c "django-admin startproject app ."
+
+
+ # to add app to current projevt
+
+  docker-compose run --rm app sh -c "python manage.py startapp core"
+
+# to create migration file
+
+  docker-compose run --rm app sh -c "python manage.py makemigrations"
+  docker-compose run --rm app sh -c "python manage.py migrate"
