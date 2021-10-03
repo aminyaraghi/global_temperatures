@@ -26,3 +26,8 @@ docker-compose build
 
 # to run a command on deployment environment
   docker-compose -f .\docker-compose-deploy.yml run --rm app sh -c "python manage.py migrate"
+
+
+
+#import GlobalLandTemperaturesByCity.csv file to database
+ docker-compose run --rm app sh -c "python manage.py importcsv ./GlobalLandTemperaturesByCity.csv" 
