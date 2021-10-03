@@ -2,11 +2,11 @@
 This command Help to import CSV dataset file to the Database
 """
 
-import csv
 from django.core.management import BaseCommand
 from core.models import GlobalLandTemperaturesByCity
 from django.utils import timezone
-from datetime import datetime
+from datetime import date
+from django.db import Error, transaction
 
 
 class Command(BaseCommand):
@@ -20,33 +20,43 @@ class Command(BaseCommand):
         start_time = timezone.now()
 
         file_path = options["file_path"]
-        with open(file_path, "r") as csv_file:
-            data = list(csv.reader(csv_file, delimiter=","))
-            for row in data[1:]:
 
-                if "/" in row[0]:
-                    # 9/1/1960
-                    tmp = row[0].split('/')
-                    dt = datetime.date(tmp[2], tmp[0], tmp[1])
-                elif "-" in row[0]:
-                    # 1772-10-01
-                    tmp = row[0].split('-')
-                    dt = datetime.date(tmp[0], tmp[1], tmp[2])
-                else:
-                    dt = None
+        i = 0
+        for line in open(file_path):
+            if i == 0:
+                i = 1
+                continue
+            i += 1
+            row = line.split(',')
+            GlobalLandTemperaturesByCity.objects.create(
+                dt=self.currect_date(row[0]),
+                AverageTemperature=float(row[1]) if row[1] else 0,
+                AverageTemperatureUncertainty=float(
+                    row[2]) if row[2] else 0,
+                City=row[3],
+                Country=row[4],
+                Latitude=row[5],
+                Longitude=row[6]
+            )
+            if i % 10000 == 0:
+                self.stdout.write(f"{i} item imported")
 
-                obj = GlobalLandTemperaturesByCity.objects.create(
-                    dt=dt,
-                    AverageTemperature=float(row[1]),
-                    AverageTemperatureUncertainty=float(row[2]),
-                    City=row[3],
-                    Country=row[4],
-                    Latitude=row[5],
-                    Longitude=row[6]
-                )
         end_time = timezone.now()
         self.stdout.write(
             self.style.SUCCESS(
                 f"Loading CSV took: {(end_time-start_time).total_seconds()} seconds."
             )
         )
+
+    def currect_date(self, datestr: str):
+        if "/" in datestr:
+            # 9/1/1960
+            tmp = datestr.split('/')
+            dt = date(int(tmp[2]), int(tmp[0]), int(tmp[1]))
+        elif "-" in datestr:
+            # 1772-10-01
+            tmp = datestr.split('-')
+            dt = date(int(tmp[0]), int(tmp[1]), int(tmp[2]))
+        else:
+            dt = None
+        return dt
