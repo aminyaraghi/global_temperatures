@@ -5,20 +5,26 @@ In this exercise, your goal is to demonstrate to us that you have a solid unders
 - [GlobalLandTemperaturesByCity.csv](https://www.kaggle.com/berkeleyearth/climate-change-earth-surface-temperature-data?select=GlobalLandTemperaturesByCity.csv) 
 
 The dataset contains the observations of monthly average temperature of cities and of countries.
+## Requirements
+
+- Django>=3.2.7,<3.3
+- psycopg2>=2.9.1,<2.10
+- uWSGI>=2.0.19.1,<2.1
+- djangorestframework==3.12.4
 
 ## To Run (Via Docker)
 
 ### Run for Development Area:
-
-To run the development server, run this task:
+First, You have to copy .env.sample file to .env file and change environment variables.
+Then, run the development server by this bash command:
 
 ```bash
 docker-compose -f ./docker-compose.yml up --build
 ```
 
 ### To deploy and run in production area:
-
-To run the production server, run this task:
+First, You have to copy .env.sample file to .env file and change environment variables.
+Then, run the production server by this bash command:
 
 ```bash
 docker-compose -f ./docker-compose-deploy.yml up --build
