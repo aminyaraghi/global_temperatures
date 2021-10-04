@@ -1,10 +1,5 @@
 # Global Temperatures
-
-In this exercise, your goal is to demonstrate to us that you have a solid understanding of python when used as a backend service, that uses a database and exposes a REST interface. We expect Python code for this task and a docker containerized solution. First, download this [climate change kaggle dataset](https://www.kaggle.com/berkeleyearth/climate-change-earth-surface-temperature-data). You will only use this file:
-
-- [GlobalLandTemperaturesByCity.csv](https://www.kaggle.com/berkeleyearth/climate-change-earth-surface-temperature-data?select=GlobalLandTemperaturesByCity.csv) 
-
-The dataset contains the observations of monthly average temperature of cities and of countries.
+By Amin Garak Yaraghi
 ## Requirements
 
 - Django>=3.2.7,<3.3
@@ -153,6 +148,8 @@ Request:
             "AverageTemperature": 41.65600000000001,
             "AverageTemperatureUncertainty": 2.87
         }
+        
+ ## 
 
 Response :
 
