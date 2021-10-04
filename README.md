@@ -26,6 +26,42 @@ To import GlobalLandTemperaturesByCity.csv file into database
 docker-compose -f ./docker-compose.yml run --rm app sh -c "python manage.py importcsv GlobalLandTemperaturesByCity.csv"
 ```
 
+## Testing the server
+
+Once the Development area started, you can navigate to http://127.0.0.1:8000/ to view the Task overview.
+
+Once the Production area started, you can navigate to http://127.0.0.1/ to view the Task overview.
+
+# REST API
+
+The REST API for this app is described below.
+
+## Get list of GlobalLandTemperaturesByCity
+
+### Request
+
+    `GET /api/`
+
+    curl -i -H 'Accept: application/json' http://localhost:8000/api/
+
+    Optional query string parameters
+        - count = int
+        - date_from = string like 2021-12-01
+        - date_to = string like 2021-12-01
+
+    curl -i -H 'Accept: application/json' http://localhost:8000/api/?count=10&date_from=2020-01-01&date_to=2020-12-01
+
+### Response
+
+    HTTP/1.1 200 OK
+    Date: Thu, 24 Feb 2011 12:36:30 GMT
+    Status: 200 OK
+    Connection: close
+    Content-Type: application/json
+    Content-Length: 2
+
+    [...]
+
 # Examples
 
 ### A. Find the entry whose city has the highest AverageTemperature since the year 2000.
