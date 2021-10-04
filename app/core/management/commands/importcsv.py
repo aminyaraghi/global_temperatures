@@ -27,7 +27,7 @@ class Command(BaseCommand):
                 i = 1
                 continue
             i += 1
-            row = line.split(',')
+            row = line.strip().split(',')
             GlobalLandTemperaturesByCity.objects.create(
                 dt=self.currect_date(row[0]),
                 AverageTemperature=float(row[1]) if row[1] else 0,
