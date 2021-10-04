@@ -1,8 +1,14 @@
 # Global Temperatures
 
-# To Run (Via Docker)
+In this exercise, your goal is to demonstrate to us that you have a solid understanding of python when used as a backend service, that uses a database and exposes a REST interface. We expect Python code for this task and a docker containerized solution. First, download this [climate change kaggle dataset](https://www.kaggle.com/berkeleyearth/climate-change-earth-surface-temperature-data). You will only use this file:
 
-## Run for Development Area:
+- [GlobalLandTemperaturesByCity.csv](https://www.kaggle.com/berkeleyearth/climate-change-earth-surface-temperature-data?select=GlobalLandTemperaturesByCity.csv) 
+
+The dataset contains the observations of monthly average temperature of cities and of countries.
+
+## To Run (Via Docker)
+
+### Run for Development Area:
 
 To run the development server, run this task:
 
@@ -10,7 +16,7 @@ To run the development server, run this task:
 docker-compose -f ./docker-compose.yml up --build
 ```
 
-## To deploy and run in production are:
+### To deploy and run in production area:
 
 To run the production server, run this task:
 
@@ -20,7 +26,7 @@ docker-compose -f ./docker-compose-deploy.yml up --build
 
 ## Import CSV file
 
-To import GlobalLandTemperaturesByCity.csv file into database
+To import GlobalLandTemperaturesByCity.csv file into database. Copy GlobalLandTemperaturesByCity.csv file into app directory and execute this command:
 
 ```bash
 docker-compose -f ./docker-compose.yml run --rm app sh -c "python manage.py importcsv GlobalLandTemperaturesByCity.csv"
@@ -32,13 +38,13 @@ Once the Development area started, you can navigate to http://127.0.0.1:8000/ to
 
 Once the Production area started, you can navigate to http://127.0.0.1/ to view the Task overview.
 
-# REST API
+## REST API
 
 The REST API for this app is described below.
 
-## Get list of GlobalLandTemperaturesByCity
+### Get list of GlobalLandTemperaturesByCity
 
-### Request
+#### Request
 
     `GET /api/`
 
@@ -51,7 +57,7 @@ The REST API for this app is described below.
 
     curl -i -H 'Accept: application/json' http://localhost:8000/api/?count=10&date_from=2020-01-01&date_to=2020-12-01
 
-### Response
+#### Response
 
     HTTP/1.1 200 OK
     Date: Thu, 24 Feb 2011 12:36:30 GMT
@@ -62,9 +68,9 @@ The REST API for this app is described below.
 
     [...]
 
-# Examples
+## Examples
 
-### A. Find the entry whose city has the highest AverageTemperature since the year 2000.
+#### A. Find the entry whose city has the highest AverageTemperature since the year 2000.
 
 Request:
 
@@ -90,7 +96,7 @@ Response:
         }
     ]
 
-### B. Following above: assume the temperature observation of the city last month breaks the record. It is 0.1 degree higher with the same uncertainty. Create this entry.
+#### B. Following above: assume the temperature observation of the city last month breaks the record. It is 0.1 degree higher with the same uncertainty. Create this entry.
 
 Request:
 
@@ -129,7 +135,7 @@ Response:
 
 ]
 
-### c. Following question 1: assume the returned entry has been found erroneous. The actual average temperature of this entry is 2.5 degrees lower. Update this entry.
+#### C. Following question 1: assume the returned entry has been found erroneous. The actual average temperature of this entry is 2.5 degrees lower. Update this entry.
 
 Request:
 
